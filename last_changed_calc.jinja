@@ -15,7 +15,7 @@
 {%- elif days > 0 -%}{{ days|round(0)|format(morph='день', as_text=false) }} назад
 {%- elif hours > 0 -%}
 {%- set total_minutes = (time % 86400) // 60 -%}
-{%- if total_minutes >= 60 -%}
+{%- if total_minutes > 60 -%}
 {%- if total_minutes >= 90 -%}{{ (total_minutes // 60 + 1)|round(0)|format(morph='час', as_text=false) }} назад
 {%- else -%}{{ (total_minutes // 60)|round(0)|format(morph='час', as_text=false) }} назад
 {%- endif -%}
@@ -32,6 +32,6 @@
 {%- if time == 0 -%}Только что
 {%- else -%}{{ time|round(0)|format(morph='секунду', as_text=false) }} назад
 {%- endif -%}
-{%- else -%}Неизвестно
+{%- else -%}Недоступно
 {%- endif -%}
 {%- endif -%}
