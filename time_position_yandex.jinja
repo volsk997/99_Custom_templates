@@ -10,5 +10,5 @@
    {%- else -%} {{-as_timestamp(as_datetime(state_attr(entity,'media_position')))| timestamp_custom('%-M:%S') }}
    {%- endif -%}
 {%- elif is_state(entity, 'unavailable') -%} Недоступно
-{%- else -%} Бездействие
+{%- else -%} Не исполняется
 {%- endif %} 
