@@ -6,6 +6,7 @@
 {% set persons = [
     {'id': 'person.stanislav', 'name': 'Станислав'},
     {'id': 'person.melkaia', 'name': 'Мелкая'},
+    {'id': 'person.dasha','name': 'Дашка'},
     {'id': 'person.babulia', 'name': 'Бабуля'},
     {'id': 'person.tioma', 'name': 'Тёма'},
     {'id': 'person.iulka', 'name': 'Юлька'} ] %}
@@ -33,8 +34,8 @@
 
 💦 Протечка {{ state_translated('binary_sensor.water_all')|lower}}
 
-<i>Актуально на {%- set m = now().strftime('%m') | int -%}
-{%- set months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'] %} {{ now().strftime('%-d') }} {{ months[m-1] }} {{ now().strftime('%Y, %H:%M') }} </i>
+__Актуально на {%- set m = now().strftime('%m') | int -%}
+{%- set months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'] %} {{ now().strftime('%-d') }} {{ months[m-1] }} {{ now().strftime('%Y, %H:%M') }} __
 {% endmacro %}
 
 ################  Л Ю Д И 
