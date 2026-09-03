@@ -2,6 +2,27 @@
 custom templates for cards
 
 
+> [!CAUTION]
+> 1.0.36
+> Add 'date_calc.jinja'
+> Default calculating 'last changed' for entity.
+
+> [!IMPORTANT]
+Use
+      {% set mode = 'last' %}
+      {% set type = 'last_triggered'%}
+      {% include 'date_calc.jinja' %}
+for calculating 'last_triggered' attribute
+
+
+> [!IMPORTANT]
+mode 'last' calculating like '2 дня назад'
+mode 'date' (default) calculating like '3 сентября 2026 в 17:00'
+
+
+> [!CAUTION]
+Jinja rendering in Russian
+
 These variables are used in custom templates
 | Name | Value |
 | --- | --- |
