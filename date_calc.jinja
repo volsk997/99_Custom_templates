@@ -1,3 +1,4 @@
+{% set sec = states('sensor.every_sec_sensor') %}
 {% if type is not defined %}
   {% set type = 'last_changed' %}
 {% endif %}
