@@ -1,0 +1,104 @@
+{% if type is not defined %}
+  {% set type = 'last_changed' %}
+{% endif %}
+
+{% if mode is not defined %}
+  {% set mode = 'last' %}
+{% endif %}
+
+{% if type == 'state' %}
+  {% set value = states(entity) %}
+{% elif type == 'last_changed' %}
+  {% set value = states[entity].last_changed %}
+{% elif type == 'last_triggered' %}
+  {% set value = state_attr(entity, 'last_triggered') %}
+{% else %}
+  {% set value = none %}
+{% endif %}
+
+{% if value in [none, 'unknown', 'unavailable', 'none', ''] %}
+Недоступно
+{% else %}
+  {% set timestamp = as_timestamp(value, none) %}
+
+  {% if timestamp is none %}
+Недоступно
+
+  {% elif mode == 'date' %}
+
+    {% set months = {
+      1:'января',
+      2:'февраля',
+      3:'марта',
+      4:'апреля',
+      5:'мая',
+      6:'июня',
+      7:'июля',
+      8:'августа',
+      9:'сентября',
+      10:'октября',
+      11:'ноября',
+      12:'декабря'
+    } %}
+
+    {% set dt = as_local(as_datetime(value)) %}
+
+{{ dt.day }} {{ months[dt.month] }} {{ dt.year }} в {{ dt.strftime('%H:%M') }}
+
+  {% else %}
+
+    {% set time = (as_timestamp(now()) - timestamp) | int(0) %}
+
+    {% if time < 0 %}
+Недоступно
+
+    {% else %}
+
+      {% set days = time // 86400 %}
+      {% set hours = (time % 86400) // 3600 %}
+      {% set minutes = (time % 3600) // 60 %}
+      {% set seconds = time % 60 %}
+
+      {% if days > 370 %}
+Более года назад
+
+      {% elif days > 185 %}
+Более полугода назад
+
+      {% elif days > 95 %}
+Более трёх месяцев назад
+
+      {% elif days > 62 %}
+Более двух месяцев назад
+
+      {% elif days > 31 %}
+Более месяца назад
+
+      {% elif days > 0 %}
+{{ days | format(morph='день', as_text=false) }} назад
+
+      {% elif hours > 0 %}
+        {% if minutes >= 30 %}
+{{ (hours + 1) | format(morph='час', as_text=false) }} назад
+        {% else %}
+{{ hours | format(morph='час', as_text=false) }} назад
+        {% endif %}
+
+      {% elif minutes > 0 %}
+        {% if seconds >= 30 %}
+{{ (minutes + 1) | format(morph='минуту', as_text=false) }} назад
+        {% else %}
+{{ minutes | format(morph='минуту', as_text=false) }} назад
+        {% endif %}
+
+      {% else %}
+        {% if seconds == 0 %}
+Только что
+        {% else %}
+{{ seconds | format(morph='секунду', as_text=false) }} назад
+        {% endif %}
+      {% endif %}
+
+    {% endif %}
+  {% endif %}
+{% endif %}
