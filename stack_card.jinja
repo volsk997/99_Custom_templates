@@ -1,11 +1,18 @@
     ha-card { 
+        {% if primary_color == 'true' %}
+        --ha-tile-info-primary-color: rgba(from var(--tile-color) r g b / 1);
+        {% else %} {% endif %}
+        --ha-tile-info-secondary-color: grey;
         --stack-card-gap: 0px;
          padding: {{padding | default('initial')}} !important;
       {% if is_state(entity| default(''), state_on | default('')) %}
       
         background-color: {{ background_color_on | default(states('input_text.s_card_background_on'))}} ;
         --primary-text-color: {{ primary_text_color | default(states('input_text.s_card_primary_text_color_on'))}};
-        
+
+      {% elif states(entity) in  ['unavailable','Недоступен', 'Недоступно'] %}
+        # background-color: rgba(255,0,0,0.1) !important;
+         opacity: 0.3;
       {% else %}
       
         background-color: {{ background_color_off | default(states('input_text.s_card_background_off'))}};
