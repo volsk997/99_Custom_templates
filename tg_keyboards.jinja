@@ -30,7 +30,7 @@
 🌡️ Температура дома: {{states('sensor.temp_home')}}
 🌤️ Температура на улице: {{state_attr('weather.pogoda', 'temperature')|round(0) }}°, {{state_translated('weather.pogoda')}} (Яндекс)
 
-🚶🏻‍♂️ {% if is_state('binary_sensor.dvizhenie_v_kvartire', 'on') %}Движение появилось {% else %}Движение было {% endif %}{% set entity = 'binary_sensor.dvizhenie_v_kvartire' %}{% include 'last_changed_calc.jinja' %}
+🚶🏻‍♂️ {% if is_state('binary_sensor.dvizhenie_v_kvartire', 'on') %}Движение появилось{% else %}Движение было{% endif %} {% set entity = 'binary_sensor.dvizhenie_v_kvartire' %}{% include 'date_calc.jinja' %}
 
 💦 Протечка {{ state_translated('binary_sensor.water_all')|lower}}
 
