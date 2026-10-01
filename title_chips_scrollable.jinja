@@ -1,29 +1,33 @@
-
-
-ha-card > .chip-container {
+    ha-card > .chip-container {
       flex-wrap: nowrap;
       overflow-x: scroll;
       overflow-y: hidden;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE и Edge */
-      --chip-background: none;
-      --chip-spacing: 0px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
       --chip-border-radius: 100px;
-      --chip-height: {{chip_height | default(50) }}px; 
-      --chip-font-weight: {{font_weight | default ('bolder') }}; 
-      --chip-font-size: {{font_size | default('15')}}px; 
-      margin-top: {{top| default(0) }}px;   
-      margin-bottom: {{bottom | default(0) }}px;  
-      --primary-text-color: {{text_color | default('initial')}}
+      --chip-height: {{ chip_height | default(50) }}px;
+      --chip-font-weight: {{ font_weight | default('bolder') }};
+      --chip-font-size: 15px;
+      margin-top: {{ top | default(-5) }}px;
+      margin-bottom: {{ bottom | default(-5) }}px;
+      --primary-text-color: {{ text_color | default('initial') }};
+      --chip-border-width: 0px;
+    }
 
-    }
     ha-card > .chip-container::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera */
-    }
-    ha-card > .chip-container::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera */
+      display: none;
     }
 
     ha-card > .chip-container > * {
       flex-shrink: 0;
+    }
+
+    /* ПК / мышь */
+    @media (pointer: coarse) {
+     {% if hide == 'true' %}
+      ha-card > .chip-container {
+          --chip-font-size: 0px;
+          --chip-padding: 0px 0px 0px 12px;
+      }
+     {% else %} {% endif %}
     }
